@@ -17,6 +17,10 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
 </div>
+      @if ($nhanVien->isEmpty())
+      <h2>Không tìm thấy nhân viên</h2>
+       
+        @else
         <table class="table bordered">
             <thead>
             <tr>
@@ -41,6 +45,7 @@
             @endforeach
             </thead>
         </table>
+        @endif
 {{$nhanVien->links()}}
 </body>
 </html>
