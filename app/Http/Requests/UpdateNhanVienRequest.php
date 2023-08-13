@@ -24,7 +24,7 @@ class UpdateNhanVienRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'tel' => 'required|numeric|min:0',
+            'tel' => 'required|regex:/^[0-9]/|max:14',
         ];
     }
 }

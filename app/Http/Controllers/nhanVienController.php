@@ -6,6 +6,8 @@ use App\Http\Requests\nhanVienRequest;
 use App\Http\Requests\UpdateNhanVienRequest;
 use App\Models\nhanVien;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Session;
+
 
 class nhanVienController extends Controller
 {
@@ -29,15 +31,21 @@ class nhanVienController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(nhanVienRequest $request)
+    public function store(NhanVienRequest $request)
     {
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'tel' => $request->tel,
         ];
-        nhanVien::create($data);
-        return redirect('/')->with('success','Registration successful!');
+    
+        $nhanVien = NhanVien::create($data);
+    
+        if ($nhanVien) {
+            return redirect()->back()->with('success', 'Thêm thành công.');
+        } else {
+            return redirect()->back()->with('error', 'Thêm không thành công. Vui lòng kiểm tra dữ liệu nhập vào.');
+        }
     }
 
     /**
