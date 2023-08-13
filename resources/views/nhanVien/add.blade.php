@@ -13,37 +13,29 @@
 <h3 class="mb-3">Đăng kí nhân viên mới</h3>
              
         <form action="/add" method="post" >
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-    
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+            @error('name')
+            <span class="text-danger">{{$message}}</span> <br>
+          @enderror
+          @error('email')
+          <span class="text-danger">{{$message}}</span> <br>
+        @enderror
+        @error('tel')
+        <span class="text-danger">{{$message}}</span> <br>
+      @enderror
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" name="name">
-                @error('name')
-                  <span class="text-danger">{{$message}}</span>
-                @enderror
+              
             </div>
             <div class="mb-3">
                 <label class="form-label">email</label>
                 <input type="text" class="form-control" name="email">
-                  @error('email')
-                  <span class="text-danger">{{$message}}</span>
-                @enderror
+                
             </div>
             <div class="mb-3">
                 <label class="form-label">tel</label>
                 <input type="text" class="form-control" name="tel">
-                  @error('tel')
-                  <span class="text-danger">{{$message}}</span>
-                @enderror
+              
             </div>
             <button type="submit" class="btn btn-success">Register</button>
             <a href="/" class="btn btn-success">Back</a>
