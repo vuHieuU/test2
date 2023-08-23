@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\nhanVienRequest;
 use App\Http\Requests\UpdateNhanVienRequest;
 use App\Models\nhanVien;
+use GuzzleHttp\Psr7\Query;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Session;
 
@@ -14,10 +15,12 @@ class nhanVienController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $nhanVien = nhanVien::paginate(3);
-        return view('nhanVien.index',compact('nhanVien'));
+        $perPage = 3;
+        $currentPage = $request->query('page',1);
+        $nhanVien = nhanVien::paginate($perPage,['*'],'page',$currentPage);
+        return view('nhanVien.index',compact('nhanVien','currentPage'));
     }
 
     /**

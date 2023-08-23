@@ -39,5 +39,32 @@
             </thead>
         </table>
         @endif
-{{$nhanVien->links()}}
+        <div>
+            @php
+                $start = $currentPage - (($currentPage - 1) % 3);
+                $end = min($start + 2, $nhanVien->lastPage());
+            @endphp
+    
+            @if ($nhanVien->previousPageUrl())
+                @if ($currentPage > 3)
+                    <a href="{{ $nhanVien->url($start - 1) }}">&lt;&lt;</a>
+                @else
+                    <a href="{{ $nhanVien->url(1) }}">&lt;&lt;</a>
+                @endif
+            @endif
+            @for ($i = $start; $i <= $end; $i++)
+                @if ($currentPage == $i)
+                    <span> {{ $i }} </span>
+                @else
+                    <a href="{{ $nhanVien->url($i) }}">{{ $i }}</a>
+                @endif
+            @endfor
+            @if ($nhanVien->nextPageUrl())
+                @if ($currentPage < $nhanVien->lastPage() - 2)
+                    <a href="{{ $nhanVien->url($end + 1) }}">&gt;&gt;</a>
+                @else
+                    <a href="{{ $nhanVien->url($nhanVien->lastPage()) }}">&gt;&gt;</a>
+                @endif
+            @endif
+        </div>
 @endsection
